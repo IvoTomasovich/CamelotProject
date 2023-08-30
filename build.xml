@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CamelotJava" default="jar" basedir=".">
+
+    <!-- Define properties -->
+    <property name="src.dir" value="src" />
+    <property name="build.dir" value="build" />
+    <property name="jar.name" value="CamelotJava.jar" />
+
+    <!-- Clean target -->
+    <target name="clean">
+        <delete dir="${build.dir}" />
+    </target>
+
+    <!-- Compile target -->
+    <target name="compile" depends="clean">
+        <mkdir dir="${build.dir}" />
+        <javac srcdir="${src.dir}" destdir="${build.dir}" />
+    </target>
+
+    <!-- JAR target -->
+    <target name="jar" depends="compile">
+        <mkdir dir="${build.dir}/jar" />
+    	<jar destfile="${build.dir}/jar/${jar.name}" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="MainClass" />
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- Default target -->
+    <target name="default" depends="jar" />
+
+</project>
