@@ -9,7 +9,7 @@ public class Place implements IThing<Place.Places> {
 		this.template = template;
 	}
 	
-	public enum Places {
+	enum Places {
 		AlchemyShop,
 		Blacksmith,
 		Bridge,
