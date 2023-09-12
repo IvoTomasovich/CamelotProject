@@ -9,7 +9,7 @@ public class Item implements IEntity, IThing<Item.Items> {
 		this.template = template;
 	}
 	
-	public enum Items {
+	enum Items {
 		Apple,
 		Bag,
 		BlueBook,
