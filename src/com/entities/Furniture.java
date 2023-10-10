@@ -1,6 +1,6 @@
 package com.entities;
 
-class Furniture implements IEntity {
+public class Furniture implements IEntity {
 	private String name;
 	
 	Furniture(String name) {

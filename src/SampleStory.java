@@ -32,9 +32,9 @@ public class SampleStory implements IStory{
 	
 	@Override
 	public void getThings() {
-		 tom=new Character(ThingNames.Tom);
-		 home = new Place(ThingNames.Home, Places.Cottage);
-		 sword = new Item(ThingNames.Sword, Items.Sword);
+		 tom=new Character(ThingNames.Tom.toString());
+		 home = new Place(ThingNames.Home.toString(), Place.Places.Cottage);
+		 sword = new Item(ThingNames.Sword.toString(), Items.Sword);
 	}
 	
 	@Override

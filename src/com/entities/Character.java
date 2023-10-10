@@ -28,7 +28,7 @@ public class Character implements IEntity, IThing<Character.BodyType>{
 		this.hairStyle = hairStyle;
 	}
 	
-	enum BodyType {
+	public enum BodyType {
 		A,
 		B,
 		C,
@@ -39,7 +39,7 @@ public class Character implements IEntity, IThing<Character.BodyType>{
 		H
 	}
 	
-	enum Clothing {
+	public enum Clothing {
 		Bandit,
 		Beggar,
 		LightArmour,
@@ -61,7 +61,7 @@ public class Character implements IEntity, IThing<Character.BodyType>{
 		return this.bodyType;
 	}
 	
-	public Clothing cloth() {
+	public Clothing getClothing() {
 		return this.clothing;
 	}
 	
