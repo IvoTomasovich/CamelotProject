@@ -1,6 +1,6 @@
 package com.entities;
 
-public class Place<Places> implements IThing<Place.Places> {
+public class Place implements IThing<Place.Places> {
 	private String name;
 	private Places template;
 	
@@ -30,7 +30,7 @@ public class Place<Places> implements IThing<Place.Places> {
 		Ruins,
 		SpookyPath,
 		Storage,
-		Tavern
+		Tavern, 
 	}
 
 	@Override

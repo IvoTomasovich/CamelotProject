@@ -2,14 +2,12 @@ package com.actions;
 
 public class HideDialog implements IAction{
 public String dialog;
+	boolean show;
 	
-	public HideDialog(String dialog) {
-		this.dialog=dialog;
-	}
 	
 	@Override
 	public String getName() {
-		return "HideDialog";
+		return show?"HideDialog":"ShowDialog";
 	}
 
 	@Override
@@ -18,6 +16,6 @@ public String dialog;
 	}
 	
 	public String toString() {
-		return String.format("%s(%s)", getName(), this.dialog);
+		return String.format("%s(\"%s\")", getName());
 	}
 }
