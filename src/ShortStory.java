@@ -21,7 +21,7 @@ public class ShortStory implements IStory {
 	    private Character SoldierHale;
 	    private Character SoldierFrye;
 	    private Character SoldierWinfred;
-	    private Character MurdererRoki;
+	    private Character Roki;
 	    private Character LadyMarina;
 	    private Character LadyKasumi;
 	    private Character SuspectHumphrey;
@@ -51,7 +51,7 @@ public class ShortStory implements IStory {
 	    private ActionChoice actionChoice6 = new ActionChoice("Talk", LadyKasumi, Icons.talk, "Talk", true);
 	    private ActionChoice actionChoice7 = new ActionChoice("Talk", CustomerAleksey, Icons.talk, "Talk", true);
 	    private ActionChoice actionChoice8 = new ActionChoice("Talk", BartenderMeier, Icons.talk, "Talk", true);
-	    private ActionChoice actionChoice9 = new ActionChoice("Talk", MurdererRoki, Icons.talk, "Talk", true);
+	    private ActionChoice actionChoice9 = new ActionChoice("Talk", Roki, Icons.talk, "Talk", true);
 	    //private ActionChoice actionChoice10 = new ActionChoice("Talk", BartenderMeier, Icons.talk, "Talk", true);
 	    
 	
@@ -83,7 +83,7 @@ public class ShortStory implements IStory {
         SoldierFrye = new Character(ThingNames.SoldierFrye.toString());
         SoldierHale = new Character(ThingNames.SoldierHale.toString());
         SoldierWinfred = new Character(ThingNames.SoldierWinfred.toString());
-        MurdererRoki = new Character(ThingNames.MurdererRoki.toString());
+        Roki = new Character(ThingNames.Roki.toString());
         LadyMarina = new Character(ThingNames.LadyMarina.toString());
         LadyKasumi = new Character(ThingNames.LadyKasumi.toString());
         SuspectHumphrey = new Character(ThingNames.SuspectHumphrey.toString());
@@ -122,7 +122,7 @@ public class ShortStory implements IStory {
 		sequence.add(new ShowDialog(true));
 		sequence.add(new SetLeft(Edric));
 		sequence.add(new SetRight(GeneralEduart));
-		sequence.add(new SetDialog("TBW"));
+		sequence.add(new SetDialog("GeneralEduart: Greetings soldier, I have a task for you. There's been reports\n of a murder at the local alchemy shop.\n I've already sent a few men to check it out,\n and they're waiting for you to come check it out."));
 		sequence.add(new HideDialog());
 		sequence.add(new DisableIcon(actionChoice1));
 		sequence.add(new EnableInput(false));
@@ -156,7 +156,9 @@ public class ShortStory implements IStory {
 		sequence.add(new ShowDialog(true));
 		sequence.add(new SetLeft(Edric));
 		sequence.add(new SetRight(SoldierHale));
-		sequence.add(new SetDialog("TBW"));
+		sequence.add(new SetDialog("Greets Soldier, glad you could make it. We received reports of a murder happening\n at this shop early in the morning. We tried to get here as soon as we could, but then the shopkeeper was long gone. The only known person at the shop during the time of the murder was the apprentice, but we can't rule out the possibility of others being here.\n [ideal|Do you have any idea where I could look] [lazy|Okay, I'll take a look around]"));
+		//sequence.add(new SetDialog("There's a lady in a nearby alleyway who claims to have spotted who ran out the shop around the time of the murder.\n I'd suggest speaking with her to get more information."));
+		//sequence.add(new SetDialog("Good luck."));
 		sequence.add(new HideDialog());
 		sequence.add(new DisableIcon(actionChoice2));
 		sequence.add(new EnableInput(false));
@@ -171,7 +173,9 @@ public class ShortStory implements IStory {
 		sequence.add(new ShowDialog(true));
 		sequence.add(new SetLeft(Edric));
 		sequence.add(new SetRight(SoldierWinfred));
-		sequence.add(new SetDialog("TBW"));
+		sequence.add(new SetDialog("Cruel world this is. Dying in your store. I'm glad the shopkeeper's apprentice called to report the situation, but she's the only one we know of who could've done it. Ironic, isn't it? [betteroption|Is the apprentice still in the shop?] [worseoption|Indeed]"));
+		//sequence.add(new SetDialog("Yes, you may speak with her if you'd like. You could get some useful information from her. Between you and me, I heard she would inherit the shop when her boss died. Just something to think about."));
+		//sequence.add(new SetDialog("Well, I wish you luck on your search for information."));
 		sequence.add(new HideDialog());
 		sequence.add(new DisableIcon(actionChoice3));
 		sequence.add(new EnableInput(false));
@@ -185,7 +189,9 @@ public class ShortStory implements IStory {
 		sequence.add(new ShowDialog(true));
 		sequence.add(new SetLeft(Edric));
 		sequence.add(new SetRight(SoldierFrye));
-		sequence.add(new SetDialog("TBW"));
+		sequence.add(new SetDialog("From what we can tell, the shopkeeper was killed with a blunt object, but we aren't sure what that object was.\n [GoodOption|Do you know of any places to look?] [BadOption|How are you that incompetent at your job?]"));
+		//sequence.add(new SetDialog("I'd suggest the tavern. The bartender knows a lot about the city. He might have information that could prove useful."));
+		//sequence.add(new SetDialog("Careful now, insulting your superior is the fastest way to be fired."));
 		sequence.add(new HideDialog());
 		sequence.add(new DisableIcon(actionChoice4));
 		sequence.add(new EnableInput(false));
@@ -199,7 +205,7 @@ public class ShortStory implements IStory {
 		sequence.add(new ShowDialog(true));
 		sequence.add(new SetLeft(Edric));
 		sequence.add(new SetRight(LadyMarina));
-		sequence.add(new SetDialog("TBW"));
+		sequence.add(new SetDialog("I know how this looks, but I'm innocent. I was taking a stroll through the city last night, and I wanted to ask my boss something. When I entered the shop, he was dead! You've got to figure out who did it."));
 		sequence.add(new HideDialog());
 		sequence.add(new DisableIcon(actionChoice5));
 		sequence.add(new EnableInput(false));
@@ -215,6 +221,7 @@ public class ShortStory implements IStory {
 	private ActionSequence getEnterCitySequence() {
 		var sequence = new ActionSequence();
 		sequence.combineWith(new CharacterCreation(LadyKasumi));
+		//Ask where we can spawn characters
 		sequence.add(new Create<Place>(City));
 		sequence.add(new Position(Edric, City));
 		sequence.add(new SetCameraFocus(Edric));
@@ -229,7 +236,10 @@ public class ShortStory implements IStory {
 		sequence.add(new ShowDialog(true));
 		sequence.add(new SetLeft(Edric));
 		sequence.add(new SetRight(LadyKasumi));
-		sequence.add(new SetDialog("TBW"));
+		sequence.add(new SetDialog("Hey there, are you one of the guards investigating the murder inside the shop? [Good Option|Yes] [Bad Option|No]"));
+		//sequence.add(new SetDialog("Then why are you here in the alley? If you don't leave, I'll get the guards to come arrest you"));
+		//sequence.add(new SetDialog("Alright, I just wanted to make sure. Early in the morning, I saw someone running from the shop to the pier. He must've been the killer. You need to go after him!\n [GoodOption|Teleport To Pier] [BadOption|I don't trust you]"));
+		//sequence.add(new SetDialog("WHAT! Men these days, you idiots never believe anything a woman says."));
 		//Implement Exiting City for pier option later
 		sequence.add(new HideDialog());
 		sequence.add(new DisableIcon(actionChoice6));
@@ -239,7 +249,7 @@ public class ShortStory implements IStory {
 	
 	private ActionSequence getEnterPierSequence() {
 		var sequence = new ActionSequence();
-		sequence.combineWith(new CharacterCreation(MurdererRoki));
+		sequence.combineWith(new CharacterCreation(Roki));
 		//Add other 2 guards later
 		sequence.add(new Create<Place>(Port));
 		sequence.add(new Position(Edric, Port));
@@ -256,7 +266,10 @@ public class ShortStory implements IStory {
 		sequence.add(new EnableInput(true));
 		sequence.add(new ShowDialog(true));
 		sequence.add(new SetLeft(Edric));
-		sequence.add(new SetRight(MurdererRoki));
+		sequence.add(new SetRight(Roki));
+		sequence.add(new SetDialog("What do you want with me, can't you see I'm busy?\n [Good Option| Why are you in such a rush] [Bad Option|Sorry Sir, I didn't notice]"));
+		//sequence.add(new SetDialog("Yeah, idiot."));
+		//sequence.add(new SetDialog("I'm not telling you anything. Why can't you guards just let me leave!"));
 		sequence.add(new SetDialog("TBW"));
 		sequence.add(new HideDialog());
 		sequence.add(new DisableIcon(actionChoice6));
@@ -291,7 +304,7 @@ public class ShortStory implements IStory {
 		sequence.add(new ShowDialog(true));
 		sequence.add(new SetLeft(Edric));
 		sequence.add(new SetRight(CustomerAleksey));
-		sequence.add(new SetDialog("TBW"));
+		sequence.add(new SetDialog("Uhh....hhh..hhh.. ca...n't....t sp....e..a..k"));
 		sequence.add(new HideDialog());
 		sequence.add(new DisableIcon(actionChoice7));
 		sequence.add(new EnableInput(false));
@@ -305,7 +318,11 @@ public class ShortStory implements IStory {
 		sequence.add(new ShowDialog(true));
 		sequence.add(new SetLeft(Edric));
 		sequence.add(new SetRight(BartenderMeier));
-		sequence.add(new SetDialog("TBW"));
+		sequence.add(new SetDialog("Hi sir, what can I do for you?\n [Good Dialog|I'd like to ask about the muder that happened last night]\n [Bad Option|Give me your finest bourbon]"));
+		sequence.add(new SetDialog("Sorry sir, we don't serve drinks this early. Only reason we're open is because that drunk bloat isn't able to leave. Please come back tonight."));
+		sequence.add(new SetDialog("Why do you think I'd know anything about that? [GoodChoice|I've heard you have ways of getting information.] [BadChoice|Because I'll arrest you if you don't have information]"));
+		sequence.add(new SetDialog("Well, I may not know who directly caused it, but one of my patrons left this place last night particularly drunk. He always talks about how he used to be a sailor. Perhaps he might know something."));
+		sequence.add(new SetDialog("Okay, I've heard enough. Get out of my shop, now!"));
 		sequence.add(new HideDialog());
 		sequence.add(new DisableIcon(actionChoice8));
 		sequence.add(new EnableInput(false));
