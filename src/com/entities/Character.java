@@ -51,10 +51,12 @@ public class Character implements IEntity, IThing<Character.BodyType>{
 		Priest
 	}
 	
-	enum HairStyles {
+	public enum HairStyles {
 		Long,
 		Spiky,
 		Short,
+		Ponytail,
+		Straight,
 	}
 	
 	public BodyType body() {
