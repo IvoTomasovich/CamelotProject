@@ -122,6 +122,7 @@ public class ShortStory implements IStory {
         OpponentShopKeeper = new Character(ThingNames.OppopentShopKeeper.toString());
         Book = new Item(ThingNames.SpellBook.toString(), Items.SpellBook);
         
+
 		
 		
 	}
@@ -430,7 +431,7 @@ public class ShortStory implements IStory {
 		sequence.combineWith(new CharacterCreation(CustomerAleksey));
 		sequence.add(new Create<Place>(Tavern));
 		sequence.add(new Create<Item>(Cup));
-		sequence.add(new Position(Cup, Tavern, "Table"));
+		sequence.add(new Position(Cup, Tavern, "Table.front"));
 		sequence.add(new Position(Edric, StarterPlace));
 		sequence.add(new SetCameraFocus(Edric));
 		sequence.add(new FadeIn());
@@ -508,6 +509,15 @@ public class ShortStory implements IStory {
 		sequence.add(new Create<Place>(Cottage1));
 		sequence.add(new Position(Edric, Cottage1));
 		sequence.add(new SetCameraFocus(Edric));
+		
+		//create scroll
+		//sequence.add(new Create<Item>(Scroll));
+		return sequence;
+	}
+	
+	private ActionSequence getReadScroll() {
+		var sequence = new ActionSequence();
+		// add code
 		return sequence;
 	}
 	
@@ -634,6 +644,7 @@ public class ShortStory implements IStory {
 		var sequence = new ActionSequence();
 		sequence.add(new FadeOut());
 		sequence.add(new Create<Place>(Dungeon));
+		//sequence.add(new SetPosition(Edric, Dungeon.Table.Front));
 		sequence.add(new Position(Edric, Dungeon, "DirtPile"));
 		sequence.add(new Position(GeneralEduart, Dungeon));
 		sequence.add(new SetCameraFocus(Edric));
@@ -674,7 +685,7 @@ public class ShortStory implements IStory {
 	//Step 6
 	//Expand On Cottages
 	//give positions to characters
-	
+	//Create the SetPosition class, use the position class to create the second argument of the create position class
 	
 	
 	
