@@ -133,6 +133,7 @@ public class ShortStory implements IStory {
 		sequence.combineWith(new CharacterCreation(GeneralEduart));
 		sequence.add(new Create<Place>(StarterPlace));
 		sequence.add(new Position(Edric, StarterPlace));
+		sequence.add(new Position(GeneralEduart, StarterPlace, "SouthEnd"));
 		sequence.add(new SetCameraFocus(Edric));
 		sequence.add(new ShowMenu(true));
 		return sequence;
@@ -152,7 +153,7 @@ public class ShortStory implements IStory {
 		sequence.add(new ShowDialog(true));
 		sequence.add(new SetLeft(Edric));
 		sequence.add(new SetRight(GeneralEduart));
-		sequence.add(new SetDialog("\"GeneralEduart: Greetings soldier, I have a task for you. There's been reports\n of a murder at the local alchemy shop.\n I've already sent a few men to check it out,\n and they're waiting for you to come check it out.[Continue|Continue]\""));
+		sequence.add(new SetDialog("\"GeneralEduart: Greetings soldier, I have a task for you. There's been reports\n of a murder at the local alchemy shop.\n I've already sent a few men to check it out,\n and they're waiting for you to come check it out. Once you've figured out who the culprit is, you can find me at the City fountain.\n[Continue|Continue]\""));
 		//sequence.add(new HideDialog());
 		//sequence.add(new DisableIcon(actionChoice1));
 		sequence.add(new EnableInput(true));
@@ -173,6 +174,10 @@ public class ShortStory implements IStory {
 		sequence.combineWith(new CharacterCreation(SoldierFrye));
 		sequence.combineWith(new CharacterCreation(SoldierWinfred));
 		sequence.combineWith(new CharacterCreation(LadyMarina));
+		sequence.add(new Position(LadyMarina, AlchemyShop, "AlchemistTable.Center"));
+		sequence.add(new Position(SoldierHale, AlchemyShop, "RightBookcase"));
+		sequence.add(new Position(SoldierFrye, AlchemyShop, "Chest"));
+		sequence.add(new Position(SoldierWinfred, AlchemyShop, "Cauldron"));
 		sequence.add(new Create<Place>(AlchemyShop));
 		sequence.add(new Position(Edric, AlchemyShop));
 		sequence.add(new SetCameraFocus(Edric));
@@ -304,6 +309,7 @@ public class ShortStory implements IStory {
 		var sequence = new ActionSequence();
 		sequence.combineWith(new CharacterCreation(LadyKasumi));
 		sequence.add(new Position(LadyKasumi, City, "Alley2"));
+		sequence.add(new Position(GeneralEduart, City, "Fountain"));
 		sequence.add(new Create<Place>(City));
 		sequence.add(new Position(Edric, City));
 		sequence.add(new SetCameraFocus(Edric));
@@ -362,6 +368,9 @@ public class ShortStory implements IStory {
 		sequence.combineWith(new CharacterCreation(SoldierTyre));
 		sequence.add(new Create<Place>(Port));
 		sequence.add(new Position(Edric, Port));
+		sequence.add(new Position(SoldierStani, Port, "SmallStall"));
+		sequence.add(new Position(SoldierTyre, Port, "BigShip"));
+		sequence.add(new Position(Roki, Port, "SmallShip"));
 		sequence.add(new SetCameraFocus(Edric));
 		sequence.add(new FadeIn());
 		return sequence;
@@ -416,12 +425,10 @@ public class ShortStory implements IStory {
 		return sequence;
 	}
 	
-	//Implement Exiting City for pier option later
-	
 	
 	private ActionSequence getCityToTavernSequence() {
 		var sequence = new ActionSequence();
-		sequence.add(new Exit(Edric, Tavern.getFurniture("Door"), true));
+		sequence.add(new Exit(Edric, City.getFurniture("GreenHouseDoor"), true));
 		return sequence;
 	}
 	
@@ -432,7 +439,10 @@ public class ShortStory implements IStory {
 		sequence.add(new Create<Place>(Tavern));
 		sequence.add(new Create<Item>(Cup));
 		sequence.add(new Position(Cup, Tavern, "Table.front"));
-		sequence.add(new Position(Edric, StarterPlace));
+		sequence.add(new Position(CustomerAleksey, Tavern, "BackLeftStool"));
+		//might need to implement sit sequence
+		sequence.add(new Position(BartenderMeier, Tavern, "Bar.Behind"));
+		sequence.add(new Position(Edric, Tavern));
 		sequence.add(new SetCameraFocus(Edric));
 		sequence.add(new FadeIn());
 		return sequence;
