@@ -1,6 +1,7 @@
 package com.actions;
 
 import com.entities.Furniture;
+import com.entities.Character;
 import com.entities.Item;
 
 public class Pickup implements IAction{

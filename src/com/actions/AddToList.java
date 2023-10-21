@@ -6,13 +6,13 @@ import com.entities.Item;
 public class AddToList implements IAction{
 	
 	private IEntity item;
-	private IEntity description;
+	private String description;
 	
 	public AddToList(IEntity item) {
 		this.item = item;
 	}
 	
-	public AddToList(IEntity item, IEntity description) {
+	public AddToList(IEntity item, String description) {
 		this.item = item;
 		this.description = description;
 	}
@@ -32,7 +32,7 @@ public class AddToList implements IAction{
 		if (description == null) {
 			return String.format("%s(%s, %s)", getName(), item.getName());
 		} else {
-			return String.format("%s(%s, %s, %s)", getName(), item.getName(), description.getName());
+			return String.format("%s(%s, %s, %s)", getName(), item.getName(), this.description);
 		}
 
 		}

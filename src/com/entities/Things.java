@@ -3,7 +3,7 @@ package com.entities;
 import java.util.Hashtable;
 import java.util.Optional;
 public class Things {
-	public enum ThingNames{ Tom, Home, Sword, Entrance, GeneralEduart, Edric, City, AlchemyShop, SoldierFrye, SoldierHale, SoldierWinfred, Apprentice, Bartender, DrunkMan, SuspiciousMan, SoldierKingsley, SoldierEdric, Skull, GreenPotion, OpenScroll, Cup, BartenderMeier, MurdererRoki, Port, LadyMarina, LadyKasumi, SuspectHumphrey, CustomerAleksey, Cottage2, CourtYard, Tavern, Cottage1, Dungeon, Roki, SoldierTyre, SoldierStani, OppopentShopKeeper, SpellBook;
+	public enum ThingNames{ Tom, Home, Sword, Entrance, GeneralEduart, Edric, City, AlchemyShop, SoldierFrye, SoldierHale, SoldierWinfred, Apprentice, Bartender, DrunkMan, SuspiciousMan, SoldierKingsley, SoldierEdric, Skull, GreenPotion, OpenScroll, Cup, BartenderMeier, MurdererRoki, Port, LadyMarina, LadyKasumi, SuspectHumphrey, CustomerAleksey, Cottage2, CourtYard, Tavern, Cottage1, Dungeon, Roki, SoldierTyre, SoldierStani, OppopentShopKeeper, SpellBook, Rimmons;
 
 	String SpellBook() {
 		// TODO Auto-generated method stub

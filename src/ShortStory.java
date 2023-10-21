@@ -29,7 +29,7 @@ public class ShortStory implements IStory {
 	    private Character LadyMarina;
 	    private Character LadyKasumi;
 	    private Character SuspectHumphrey;
-	    private Character CustomerAleksey;
+	    private Character Rimmons;
 	    private Character BartenderMeier;
 	    private Character SoldierTyre;
 	    private Character SoldierStani;
@@ -58,7 +58,7 @@ public class ShortStory implements IStory {
 	    private ActionChoice actionChoice4 = new ActionChoice("Talk", SoldierFrye, Icons.talk, "Talk", true);
 	    private ActionChoice actionChoice5 = new ActionChoice("Talk", LadyMarina, Icons.talk, "Talk", true);
 	    private ActionChoice actionChoice6 = new ActionChoice("Talk", LadyKasumi, Icons.talk, "Talk", true);
-	    private ActionChoice actionChoice7 = new ActionChoice("Talk", CustomerAleksey, Icons.talk, "Talk", true);
+	    private ActionChoice actionChoice7 = new ActionChoice("Talk", Rimmons, Icons.talk, "Talk", true);
 	    private ActionChoice actionChoice8 = new ActionChoice("Talk", BartenderMeier, Icons.talk, "Talk", true);
 	    private ActionChoice actionChoice9 = new ActionChoice("Talk", Roki, Icons.talk, "Talk", true);
 	    private ActionChoice actionChoice10 = new ActionChoice("Talk", SoldierTyre, Icons.talk, "Talk", true);
@@ -71,7 +71,7 @@ public class ShortStory implements IStory {
 			EnterAlchemyShop, TalkToGuard2, TalkToGuard3, TeleportToShopViaGeneral, GoodChoiceFrye, BadChoiceFrye, DialogForCorrectEvidenceForApprentice, ShowEvidenceForApprentice,
 			BadEndingForShoppKeeper, TeleportToDungeonForBadEnding, GiveRightEvidenceToEduartForShopKeeper, ShowEvidenceForOpponentShopKeeper,
 			TalkToApprentice, Continue, LessIdealAnswerwithHale, BetterOptionWinfred, WorseOptionWinfred, ContinueWinfred, GoodOptionKasumi, BadOptionKasumi, TeleportToPier, SayNoToPier,
-			OpenTavernDoor, EnterTavern, SpeakToDrunkMan1, ExitConversation, SpeakToDrunkMan2, SpeakToBarTender, EndConversationAfterListening,
+			OpenTavernDoor, EnterTavern, SpeakToDrunkMan1, ExitConversation, SpeakToDrunkMan2, SpeakToBarTender, EndConversationAfterListening, PickUpBook, PutBookInInventory,
 			EnterCity, SpeakWithLady, ChooseToContinueInCity, ChooseToGoToPort, LeaveCity, SpeakWithCustomerAleksey, SayNoToKnowingKiller, ShowEvidenceForRoki,
 			OpenCottageDoor, EnterCottage, ReadScroll, AddScrollToInventory, ClickOnPotion, AddPotionToInventory, YesToKnowingKiller, ShowProof, NoProof, OkayFromGeneralToGoodChoice, GiveWrongItemForRightChoice,
 			SpeakWithGuard, YouDLikeToContinueSearching, YouDLikeToMakeAVerdict, PickShopKeeper, BadEnding1, PickSuspiciousMan, GoodEnding, PickApprentice,
@@ -93,6 +93,7 @@ public class ShortStory implements IStory {
 	@Override
 	public void getThings() {
 		Edric = new Character(ThingNames.Tom.toString(), BodyType.C, Clothing.LightArmour, HairStyles.Short);
+		Rimmons = new Character(ThingNames.Rimmons.toString(), BodyType.H, Clothing.Peasant, HairStyles.Short);
         GeneralEduart = new Character(ThingNames.GeneralEduart.toString(), BodyType.D, Clothing.HeavyArmour,HairStyles.Short);
         StarterPlace = new Place(ThingNames.Home.toString(), Place.Places.Bridge);
         CourtYard = new Place(ThingNames.CourtYard.toString(), Place.Places.Courtyard);
@@ -178,10 +179,23 @@ public class ShortStory implements IStory {
 		sequence.add(new Position(SoldierHale, AlchemyShop, "RightBookcase"));
 		sequence.add(new Position(SoldierFrye, AlchemyShop, "Chest"));
 		sequence.add(new Position(SoldierWinfred, AlchemyShop, "Cauldron"));
+		sequence.add(new Position(Book, AlchemyShop, "Table.Left"));
 		sequence.add(new Create<Place>(AlchemyShop));
 		sequence.add(new Position(Edric, AlchemyShop));
 		sequence.add(new SetCameraFocus(Edric));
 		sequence.add(new FadeIn());
+		return sequence;
+	}
+	
+	private ActionSequence getPickUpBookSequence() {
+		var sequence = new ActionSequence();
+		sequence.add(new Pickup(Edric, Book, AlchemyShop.getFurniture("Table")));
+		return sequence;
+	}
+	
+	private ActionSequence getAddBookToInventorySequence() {
+		var sequence = new ActionSequence();
+		sequence.add(new AddToList(Book, "A spellbook with many unique spells. It's quite heavy."));
 		return sequence;
 	}
 	
@@ -435,11 +449,11 @@ public class ShortStory implements IStory {
 	private ActionSequence getEnterTavernSequence() {
 		var sequence = new ActionSequence();
 		sequence.combineWith(new CharacterCreation(BartenderMeier));
-		sequence.combineWith(new CharacterCreation(CustomerAleksey));
+		sequence.combineWith(new CharacterCreation(Rimmons));
 		sequence.add(new Create<Place>(Tavern));
 		sequence.add(new Create<Item>(Cup));
 		sequence.add(new Position(Cup, Tavern, "Table.front"));
-		sequence.add(new Position(CustomerAleksey, Tavern, "BackLeftStool"));
+		sequence.add(new Position(Rimmons, Tavern, "BackLeftStool"));
 		//might need to implement sit sequence
 		sequence.add(new Position(BartenderMeier, Tavern, "Bar.Behind"));
 		sequence.add(new Position(Edric, Tavern));
@@ -454,8 +468,8 @@ public class ShortStory implements IStory {
 		//sequence.add(new EnableInput(true));
 		sequence.add(new ShowDialog(true));
 		sequence.add(new SetLeft(Edric));
-		sequence.add(new SetRight(CustomerAleksey));
-		sequence.add(new SetDialog("\"Uhh....hhh..hhh.. ca...n't....t sp....e..a..k\n[Continue|Continue]\""));
+		sequence.add(new SetRight(Rimmons));
+		sequence.add(new SetDialog("\"Uhh....hhh..hhh.. ca...n't....t sp....e..a..k.......Mu.s....tF....i....n..d...K..a...r.e...n\n[Continue|Continue]\""));
 		//sequence.add(new HideDialog());
 		//sequence.add(new DisableIcon(actionChoice7));
 		//sequence.add(new EnableInput(false));
@@ -694,8 +708,7 @@ public class ShortStory implements IStory {
 //What to do
 	//Step 6
 	//Expand On Cottages
-	//give positions to characters
-	//Create the SetPosition class, use the position class to create the second argument of the create position class
+	
 	
 	
 	
