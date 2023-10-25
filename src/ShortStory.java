@@ -10,6 +10,9 @@ import com.entities.Place;
 import com.entities.Things.ThingNames;
 import com.playerInput.ActionChoice;
 import com.playerInput.ActionChoice.Icons;
+import com.playerInput.PositionChoice;
+import com.playerInput.PositionChoice.Condition;
+import com.playerInput.SelectionChoice;
 import com.sequences.CharacterCreation;
 import com.storygraph.ActionMap;
 import com.storygraph.INode;
@@ -77,7 +80,7 @@ public class ShortStory implements IStory {
 			EnterCity, SpeakWithLady, ChooseToContinueInCity, ChooseToGoToPort, LeaveCity, SpeakWithCustomerAleksey, SayNoToKnowingKiller, ShowEvidenceForRoki,
 			OpenCottageDoor, EnterCottage, ReadScroll, AddScrollToInventory, ClickOnPotion, AddPotionToInventory, YesToKnowingKiller, ShowProof, NoProof, OkayFromGeneralToGoodChoice, GiveWrongItemForRightChoice,
 			SpeakWithGuard, YouDLikeToContinueSearching, YouDLikeToMakeAVerdict, PickShopKeeper, BadEnding1, PickSuspiciousMan, GoodEnding, PickApprentice,
-			EnterPort, TalkToGuard5, TalkToMan, TalkToGuard6, DialogOptionOne, DialogOptionTwo, GoodOptionFromMeiser, GoodOptionFromGoodOptionFromMeiser, BadOptionFromMeiser, BadOptionFromGoodOptionMeiser, SpeakToGuard, AddBookToInventory, SpeakwithSoldierHale, IdealAnswerwithHale, speakwithsoldierwinfred, Speakwithsoldierfrye, SpeakwithladyMarina, SpeakwithLadyKasumi, Speakwithsoldierstani, Speakwithroki, Speakwithsoldiertyre, CitytoTavern, SpeakwithRimmons, BadOptionFromGoodOptionFromMeiser, ExitTavern, ExitCottage, SpeakWithGeneralEduarttogivedecision, BadEndingForShoppKeeperDialog, BadEndingDialog, PickUpScroll, CloseandPutDownScroll, PickUpPotionandAddToInventory, getGoodAnswerFromTyreforfirstquestion, NeutralAnswerFromTyre, FinalDialogFromTyre, DoNotLeavePierYet, ExitPier
+			EnterPort, TalkToGuard5, TalkToMan, TalkToGuard6, DialogOptionOne, DialogOptionTwo, GoodOptionFromMeiser, GoodOptionFromGoodOptionFromMeiser, BadOptionFromMeiser, BadOptionFromGoodOptionMeiser, SpeakToGuard, AddBookToInventory, SpeakwithSoldierHale, IdealAnswerwithHale, speakwithsoldierwinfred, Speakwithsoldierfrye, SpeakwithladyMarina, SpeakwithLadyKasumi, Speakwithsoldierstani, Speakwithroki, Speakwithsoldiertyre, CitytoTavern, SpeakwithRimmons, BadOptionFromGoodOptionFromMeiser, ExitTavern, ExitCottage, SpeakWithGeneralEduarttogivedecision, BadEndingForShoppKeeperDialog, BadEndingDialog, PickUpScroll, CloseandPutDownScroll, PickUpPotionandAddToInventory, getGoodAnswerFromTyreforfirstquestion, NeutralAnswerFromTyre, FinalDialogFromTyre, DoNotLeavePierYet, ExitPier, GetGoodDialogFromRoki, GetBadDialogFromRoki, ExitCityToCollege, ExitCityToCottage, Talk
 			}
 	
 	@Override
@@ -114,6 +117,8 @@ public class ShortStory implements IStory {
 		map.add(NodeLabels.DoNotLeavePierYet.toString(), getDoNotLeavePierYetSequence());
 		map.add(NodeLabels.ExitPier.toString(), getExitPierSequence());
 		map.add(NodeLabels.Speakwithroki.toString(),getSpeakWithRokiSequence());
+		map.add(NodeLabels.GetGoodDialogFromRoki.toString(), getGoodDialogRokiSequence());
+		map.add(NodeLabels.GetBadDialogFromRoki.toString(), getBadDialogRokiSequence());
 		map.add(NodeLabels.Speakwithsoldiertyre.toString(),getSpeakWithSoldierTyreSequence());
 		map.add(NodeLabels.getGoodAnswerFromTyreforfirstquestion.toString(), getGoodAnswerFromTyreforfirstquestionSequence());
 		map.add(NodeLabels.NeutralAnswerFromTyre.toString(), getNeutralAnswerFromTyreSequence());
@@ -128,6 +133,7 @@ public class ShortStory implements IStory {
 		map.add(NodeLabels.BadOptionFromMeiser.toString(),getBadOptionFromMeiserSequence());
 		map.add(NodeLabels.BadOptionFromGoodOptionFromMeiser.toString(),getBadOptionFromGoodOptionMeiserSequence());
 		map.add(NodeLabels.ExitTavern.toString(),getExitTavernSequence());
+		map.add(NodeLabels.ExitCityToCottage.toString(), getExitCityToCollegeSequence());
 		map.add(NodeLabels.EnterCottage.toString(),getEnterCottageSequence());
 		map.add(NodeLabels.PickUpScroll.toString(), getPickUpScrollSequence());
 		map.add(NodeLabels.ReadScroll.toString(),getReadScrollSequence());
@@ -156,8 +162,123 @@ public class ShortStory implements IStory {
 
 	@Override
 	public INode getRoot() {
-		// TODO Auto-generated method stub
-		return new Node("root");
+		
+		//Nodes Themselves
+		var root = new Node(NodeLabels.Init.toString());
+		var startNode = new Node(NodeLabels.Start.toString());
+		var SpeakToGuardNode = new Node(NodeLabels.SpeakToGuard.toString());
+		var TeleportToShopviaGeneralNode = new Node(NodeLabels.TeleportToShopViaGeneral.toString());
+		var EnterAlchemyShopNode = new Node(NodeLabels.EnterAlchemyShop.toString());
+		var PickUpBookNode = new Node(NodeLabels.PickUpBook.toString());
+		var AddBookToInventoryNode = new Node(NodeLabels.AddBookToInventory.toString());
+		var SpeakWitheSoldierHaleNode = new Node(NodeLabels.SpeakwithSoldierHale.toString());
+		var IdealAnswerWithHale = new Node(NodeLabels.IdealAnswerwithHale.toString());
+		var LessIdealAnswerWithHaleNode = new Node(NodeLabels.LessIdealAnswerwithHale.toString());
+		var ContinueNode = new Node(NodeLabels.Continue.toString());
+		var SpeakWithSoliderWinfredNode = new Node(NodeLabels.speakwithsoldierwinfred.toString());
+		var BetterOptionWinfredNode = new Node(NodeLabels.BetterOptionWinfred.toString());
+		var WorseOptionWinfredNode = new Node(NodeLabels.WorseOptionWinfred.toString());
+		var ContinueWinfredNode = new Node(NodeLabels.ContinueWinfred.toString());
+		var SpeakWithSoliderFryeNode = new Node(NodeLabels.Speakwithsoldierfrye.toString());
+		var GoodChoiceFryeNode = new Node(NodeLabels.GoodChoiceFrye.toString());
+		var BadChoiceFryeNode = new Node(NodeLabels.BadChoiceFrye.toString());
+		var SpeakWithLadyMarinaNode = new Node(NodeLabels.SpeakwithladyMarina.toString());
+		var ExitAlchemyShopNode = new Node(NodeLabels.ExitAlchemyShop.toString());
+		var EnterCityNode = new Node(NodeLabels.EnterCity.toString());
+		var SpeakWithLadyKasumiNode = new Node(NodeLabels.SpeakwithLadyKasumi.toString());
+		var GoodOptionkasumiNode = new Node(NodeLabels.GoodOptionKasumi.toString());
+		var BadOptionkasumiNode = new Node(NodeLabels.BadOptionKasumi.toString());
+		var TeleportToPierNode = new Node(NodeLabels.TeleportToPier.toString());
+		var SayNoToPierNode = new Node(NodeLabels.SayNoToPier.toString());
+		var EnterPortNode = new Node(NodeLabels.EnterPort.toString());
+		var SpeakWithSoldierStaniNode = new Node(NodeLabels.Speakwithsoldierstani.toString());
+		var DoNotLeavePierYetNode = new Node(NodeLabels.DoNotLeavePierYet.toString());
+		var ExitPierNode = new Node(NodeLabels.ExitPier.toString());
+		var SpeakWithRokiNode = new Node(NodeLabels.Speakwithroki.toString());
+		var GoodDialogFromRokiNode = new Node(NodeLabels.GetGoodDialogFromRoki.toString());
+		var BadDialogFromRokiNode = new Node(NodeLabels.GetBadDialogFromRoki.toString());
+		var SpeakwithSoldierTyreNode = new Node(NodeLabels.Speakwithsoldiertyre.toString());
+		var GetGoodOptionFromTyreForFirstQuestionNode = new Node(NodeLabels.getGoodAnswerFromTyreforfirstquestion.toString());
+		var GetNeutralOptionFromTyreNode = new Node(NodeLabels.NeutralAnswerFromTyre.toString());
+		var GetFinalDialogFromTyreNode = new Node(NodeLabels.FinalDialogFromTyre.toString());
+		var AddCupToInventoryNode = new Node(NodeLabels.AddCupToInventory.toString());
+		var CityToTavernNode = new Node(NodeLabels.CitytoTavern.toString());
+		var EnterTavernNode = new Node(NodeLabels.EnterTavern.toString());
+		var SpeakWithRimmonsNode = new Node(NodeLabels.SpeakwithRimmons.toString());
+		var SpeakToBarTenderNode = new Node(NodeLabels.SpeakToBarTender.toString());
+		var GoodOptionFromMeiserNode = new Node(NodeLabels.GoodOptionFromMeiser.toString());
+		var GoodOptionFromGoodOptionFromMeiserNode = new Node(NodeLabels.GoodOptionFromGoodOptionFromMeiser.toString());
+		var BadOptionFromMeiserNode = new Node(NodeLabels.BadOptionFromMeiser.toString());
+		var BadOptionFromGoodOptionNode = new Node(NodeLabels.BadOptionFromGoodOptionFromMeiser.toString());
+		var ExitTavernNode = new Node(NodeLabels.ExitTavern.toString());
+		var ExitCityToCollege = new Node(NodeLabels.ExitCityToCottage.toString());
+		var EnterCottageNode = new Node(NodeLabels.EnterCottage.toString());
+		var PickUpScrollNode = new Node(NodeLabels.PickUpScroll.toString());
+		var ReadScrollNode = new Node(NodeLabels.ReadScroll.toString());
+		var CloseandPutDownScrollNode = new Node(NodeLabels.CloseandPutDownScroll.toString());
+		var PickUpPotionandAddToInventoryNode = new Node(NodeLabels.PickUpPotionandAddToInventory.toString());
+		var ExitCottageNode = new Node(NodeLabels.ExitCottage.toString());
+		var SpeakWithGeneralEduarttogivedecisionNode = new Node(NodeLabels.SpeakWithGeneralEduarttogivedecision.toString());
+		var YesToKnowingKillernode = new Node(NodeLabels.YesToKnowingKiller.toString());
+		var SayNoToKnowingKillernode = new Node(NodeLabels.SayNoToKnowingKiller.toString());
+		var ShowProofNode = new Node(NodeLabels.ShowProof.toString());
+		var NoProofNode = new Node(NodeLabels.NoProof.toString());
+		var ShowEvidenceForRokiNode = new Node(NodeLabels.ShowEvidenceForRoki.toString());
+		var OkayFromGeneralToGoodChoiceNode = new Node(NodeLabels.OkayFromGeneralToGoodChoice.toString());
+		var GiveWrongItemForWriteChoiceNode = new Node(NodeLabels.GiveWrongItemForRightChoice.toString());
+		var BadEndingDialogNode = new Node(NodeLabels.TeleportToDungeonForBadEnding.toString());
+		var ShowEvidenceForApprenticeNode = new Node(NodeLabels.ShowEvidenceForApprentice.toString());
+		var DialogForCorrectEvidenceForApprencticeNode = new Node(NodeLabels.DialogForCorrectEvidenceForApprentice.toString());
+		
+		//Mapping the nodes
+		root.addChild(new SelectionChoice("Start"), startNode);
+		startNode.addChild(new ActionChoice(NodeLabels.Talk.toString(), GeneralEduart, Icons.talk), SpeakToGuardNode);
+		SpeakToGuardNode.addChild(new SelectionChoice("Continue") ,TeleportToShopviaGeneralNode);
+		TeleportToShopviaGeneralNode.addChild(new PositionChoice(Edric, "AlchemyShop.Spawn", Condition.arrived), EnterAlchemyShopNode);
+		EnterAlchemyShopNode.addChild(new PositionChoice(Edric, "AlchemyShop.Spawn", Condition.arrived), PickUpBookNode);
+		PickUpBookNode.addChild(new ActionChoice(NodeLabels.AddBookToInventory.toString(), Book, Icons.book, "Add Book To Inventory", true), AddBookToInventoryNode);
+		EnterAlchemyShopNode.addChild(new ActionChoice(NodeLabels.Talk.toString(), SoldierHale, Icons.talk), SpeakWitheSoldierHaleNode);
+		SpeakWitheSoldierHaleNode.addChild(new SelectionChoice("\"[ideal|Do you have any idea where I could look]\""), IdealAnswerWithHale);
+		SpeakWitheSoldierHaleNode.addChild(new SelectionChoice("\"[lazy|Okay, I'll take a look around]\""),LessIdealAnswerWithHaleNode);
+		IdealAnswerWithHale.addChild(new SelectionChoice("\"[Continue|Continue]\""), ContinueNode);
+		LessIdealAnswerWithHaleNode.addChild(new SelectionChoice("\"[Continue|Continue]\""), ContinueNode);
+		EnterAlchemyShopNode.addChild(new PositionChoice(Edric, "AlchemyShop.Spawn", Condition.arrived), SpeakWithSoliderWinfredNode);
+		SpeakWithSoliderWinfredNode.addChild(new SelectionChoice("\"[GoodOption|Do you know of any places to look?]\""), BetterOptionWinfredNode);
+		SpeakWithSoliderWinfredNode.addChild(new SelectionChoice("\"[worseoption|Indeed]\""),WorseOptionWinfredNode);
+		BetterOptionWinfredNode.addChild(new SelectionChoice("\"[Continue|Continue]\""), ContinueWinfredNode);
+		ContinueWinfredNode.addChild(new SelectionChoice("\"[Continue|Continue]\""), ContinueNode);
+		EnterAlchemyShopNode.addChild(new PositionChoice(Edric, "AlchemyShop.Spawn", Condition.arrived), SpeakWithSoliderFryeNode);
+		SpeakWithSoliderFryeNode.addChild(new SelectionChoice("\"[GoodOption|Do you know of any places to look?]\""), GoodChoiceFryeNode);
+		SpeakWithSoliderFryeNode.addChild(new SelectionChoice("\"[BadOption|How are you that incompetent at your job?]\""), BadChoiceFryeNode);
+		GoodChoiceFryeNode.addChild(new SelectionChoice("\"[Continue|Continue]\""), ContinueNode);
+		BadChoiceFryeNode.addChild(new SelectionChoice("\"[Continue|Continue]\""), ContinueNode);
+		EnterAlchemyShopNode.addChild(new ActionChoice(NodeLabels.Talk.toString(), LadyMarina, Icons.talk), SpeakWithLadyMarinaNode);
+		SpeakWithLadyMarinaNode.addChild(new SelectionChoice("\"[Continue|Continue]\""), ContinueNode);
+		EnterAlchemyShopNode.addChild(new PositionChoice(Edric, "AlchemyShop.Door", Condition.exited),ExitAlchemyShopNode);
+		ExitAlchemyShopNode.addChild(new PositionChoice(Edric, "City.Spawn", Condition.arrived), EnterCityNode);
+		EnterCityNode.addChild(new ActionChoice(NodeLabels.Talk.toString(),LadyKasumi, Icons.talk), SpeakWithLadyKasumiNode);
+		SpeakWithLadyKasumiNode.addChild(new SelectionChoice("\"[Good Option|Yes]\""), GoodOptionkasumiNode);
+		SpeakWithLadyKasumiNode.addChild(new SelectionChoice("\"[Bad Option|No]\""), BadOptionkasumiNode);
+		//Not sure if this actually works, will debug later
+		GoodOptionkasumiNode.addChild(new SelectionChoice("\"[GoodOption|Teleport To Pier]\""), TeleportToPierNode);
+		GoodOptionkasumiNode.addChild(new SelectionChoice("\"[BadOption|I don't trust you]\""), SayNoToPierNode);
+		SayNoToPierNode.addChild(new SelectionChoice("\"[Continue|Continue]\""), ContinueNode);
+		TeleportToPierNode.addChild(new PositionChoice(Edric, "Port.Spawn", Condition.arrived), EnterPortNode);
+		EnterPortNode.addChild(new ActionChoice(NodeLabels.Talk.toString(), SoldierStani, Icons.talk), SpeakWithSoldierStaniNode);
+		SpeakWithSoldierStaniNode.addChild(new SelectionChoice("\"[Yes|Yes]\""), ExitPierNode);
+		//Not sure if this actually works, will debug later
+		ExitPierNode.addChild(new PositionChoice(Edric, "City.Spawn", Condition.arrived), EnterCityNode);
+		SpeakWithSoldierStaniNode.addChild(new SelectionChoice("\"[No|No]\""), DoNotLeavePierYetNode);
+		DoNotLeavePierYetNode.addChild(new SelectionChoice("\"[Continue|Continue]\""), ContinueNode);
+		EnterPortNode.addChild(new ActionChoice(NodeLabels.Talk.toString(), Roki, Icons.talk), SpeakWithRokiNode);
+		
+		EnterPortNode.addChild(new ActionChoice(NodeLabels.Talk.toString(), SoldierTyre, Icons.talk), SpeakwithSoldierTyreNode);
+		
+		
+
+		
+		
+		return root;
 	}
 
 	@Override
@@ -220,15 +341,15 @@ public class ShortStory implements IStory {
 	
 	private ActionSequence getSpeakToGuardSequence() {
 		var sequence=new ActionSequence();
+		sequence.add(new EnableInput(true));
 		//sequence.add(new EnableIcon(actionChoice1));
 		//sequence.add(new EnableInput(true));
 		sequence.add(new ShowDialog(true));
 		sequence.add(new SetLeft(Edric));
 		sequence.add(new SetRight(GeneralEduart));
-		sequence.add(new SetDialog("\"GeneralEduart: Greetings soldier, I have a task for you. There's been reports\n of a murder at the local alchemy shop.\n I've already sent a few men to check it out,\n and they're waiting for you to come check it out. Once you've figured out who the culprit is, you can find me at the City fountain.\n[Continue|Continue]\""));
+		sequence.add(new SetDialog("\"Greetings soldier, I have a task for you. There's been reports\n of a murder at the local alchemy shop.\n I've already sent a few men to check it out,\n and they're waiting for you to come check it out. Once you've figured out who the culprit is, you can find me at the City fountain.\n[Continue|Continue]\""));
 		//sequence.add(new HideDialog());
 		//sequence.add(new DisableIcon(actionChoice1));
-		sequence.add(new EnableInput(true));
 		return sequence;
 	}
 	
@@ -462,7 +583,7 @@ public class ShortStory implements IStory {
 		return sequence;
 	}
 	
-	//Add Exit Via Guard Option Later
+
 	private ActionSequence getSpeakWithSoliderStaniSequence() {
 		var sequence = new ActionSequence();
 		//sequence.add(new EnableIcon(actionChoice1));
@@ -490,17 +611,31 @@ public class ShortStory implements IStory {
 	
 	private ActionSequence getSpeakWithRokiSequence() {
 		var sequence=new ActionSequence();
-		sequence.add(new EnableIcon(actionChoice1));
-		sequence.add(new EnableInput(true));
+		//sequence.add(new EnableIcon(actionChoice1));
+		//sequence.add(new EnableInput(true));
 		sequence.add(new ShowDialog(true));
 		sequence.add(new SetLeft(Edric));
 		sequence.add(new SetRight(Roki));
-		sequence.add(new SetDialog("\"What do you want with me, can't you see I'm busy?\n [Good Option| Why are you in such a rush] [Bad Option|Sorry Sir, I didn't notice]\""));
+		sequence.add(new SetDialog("\"What do you want with me, can't you see I'm busy?\n [Good Option| Why are you in such a rush?] [Bad Option|Sorry Sir, I didn't notice]\""));
+		//sequence.add(new SetDialog("\"Yeah, idiot.\n[Continue|Continue]\""));
+		//sequence.add(new SetDialog("\"I'm not telling you anything. Why can't you guards just let me leave!\n[Continue|Continue]\""));
+		//sequence.add(new HideDialog());
+		//sequence.add(new DisableIcon(actionChoice6));
+		//sequence.add(new EnableInput(false));
+		return sequence;
+	}
+	
+	//map roki dialog
+	
+	private ActionSequence getGoodDialogRokiSequence() {
+		var sequence=new ActionSequence();
+		sequence.add(new SetDialog("\"I'm not telling you anything. Why won't you guards just let me leave!\n[Continue|Continue]\""));
+		return sequence;
+	}
+	
+	private ActionSequence getBadDialogRokiSequence() {
+		var sequence=new ActionSequence();
 		sequence.add(new SetDialog("\"Yeah, idiot.\n[Continue|Continue]\""));
-		sequence.add(new SetDialog("\"I'm not telling you anything. Why can't you guards just let me leave!\n[Continue|Continue]\""));
-		sequence.add(new HideDialog());
-		sequence.add(new DisableIcon(actionChoice6));
-		sequence.add(new EnableInput(false));
 		return sequence;
 	}
 	
@@ -637,7 +772,13 @@ public class ShortStory implements IStory {
 		sequence.add(new FadeOut());
 		return sequence;
 	}
-// Expand on Cottage	
+
+	private ActionSequence getExitCityToCollegeSequence() {
+		var sequence = new ActionSequence();
+		sequence.add(new Exit(Edric, City.getFurniture("GreenHouseDoor") , true));
+		return sequence;
+	}
+	
 	private ActionSequence getEnterCottageSequence() {
 		var sequence = new ActionSequence();
 		sequence.add(new Create<Place>(Cottage1));
@@ -648,7 +789,7 @@ public class ShortStory implements IStory {
 		sequence.add(new FadeIn());
 		return sequence;
 	}
-//map actions after	
+
 	private ActionSequence getPickUpScrollSequence() {
 		var sequence = new ActionSequence();
 		sequence.add(new Pickup(Edric, Scroll));

@@ -53,24 +53,9 @@ public class SampleStory implements IStory{
 		var exitHomeNode = new Node(NodeLabels.ExitHome.toString());
 		
 		var startNode = new Node(NodeLabels.Start.toString());
-		startNode.addChild(
-			new ActionChoice(
-				ActionNames.Take.toString(), 
-				sword, 
-				Icons.sword, 
-				"Take the sword", 
-				true)
-			, takeSwordNode);
+		startNode.addChild(new ActionChoice(ActionNames.Take.toString(), sword, Icons.sword, "Take the sword", true), takeSwordNode);
 		
-		startNode.addChild(
-			new ActionChoice(
-					ActionNames.Exit.toString(),
-					home.getFurniture("Door"),
-					Icons.door,
-					"Leave house",
-					true),
-			exitHomeNode);
-		
+		startNode.addChild(new ActionChoice(ActionNames.Exit.toString(),home.getFurniture("Door"),Icons.door,"Leave house",true),exitHomeNode);
 		
 		var root = new Node(NodeLabels.Init.toString());
 		root.addChild(new SelectionChoice("Start"), startNode);
