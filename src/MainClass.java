@@ -3,7 +3,6 @@ import com.storygraph.*;
 public class MainClass {
 	public static void main(String[] args) {
 		try {
-		System.out.println("Hello");
 		var story = new ShortStory();
 		var graph = new Graph();
 		var currentNode = story.getRoot();
@@ -13,8 +12,6 @@ public class MainClass {
 			if(currentNode==null)
 				break;
 		}
-		System.out.println("Bye");
-		System.out.println("Please work");
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());
