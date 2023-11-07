@@ -55,11 +55,9 @@ public class Character implements IEntity, IThing<Character.BodyType>{
 		Long,
 		Spiky,
 		Short,
-		Ponytail,
-		Straight,
 	}
 	
-	public BodyType body() {
+	public BodyType getBody() {
 		return this.bodyType;
 	}
 	
@@ -67,7 +65,7 @@ public class Character implements IEntity, IThing<Character.BodyType>{
 		return this.clothing;
 	}
 	
-	public HairStyles hair() {
+	public HairStyles gethair() {
 		return this.hairStyle;
 	}
 	

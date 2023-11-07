@@ -30,9 +30,9 @@ public class AddToList implements IAction{
 	
 	public String toString() {
 		if (description == null) {
-			return String.format("%s(%s, %s)", getName(), item.getName());
+			return String.format("%s(%s)", getName(), item.getName());
 		} else {
-			return String.format("%s(%s, %s, %s)", getName(), item.getName(), this.description);
+			return String.format("%s(%s, %s)", getName(), item.getName(), this.description);
 		}
 
 		}

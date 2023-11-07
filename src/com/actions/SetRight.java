@@ -12,7 +12,7 @@ public class SetRight implements IAction{
 
 	@Override
 	public String getName() {
-		return "SetLeft";
+		return "SetRight";
 	}
 
 	@Override

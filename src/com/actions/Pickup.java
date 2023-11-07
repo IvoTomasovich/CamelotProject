@@ -32,9 +32,9 @@ public class Pickup implements IAction{
 	
 	public String toString() {
 		if (furniture == null) {
-			return String.format("%s(%s, %s)", getName(), item.getName());
+			return String.format("%s(%s, %s)", getName(), character.getName(), item.getName());
 		} else {
-			return String.format("%s(%s, %s)", getName(), item.getName(), furniture.getName());
+			return String.format("%s(%s, %s, %s)", getName(), character.getName(), item.getName(), furniture.getName());
 			}
 		}
 	}

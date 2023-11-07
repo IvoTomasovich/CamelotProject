@@ -4,7 +4,6 @@ import com.entities.IEntity;
 
 public class ShowList implements IAction{
 	private IEntity entity;
-	boolean show;
 	
 	public ShowList(IEntity entity) {
 		this.entity = entity;
@@ -12,7 +11,7 @@ public class ShowList implements IAction{
 	
 	@Override
 	public String getName() {
-		return show? "ShowList":"HideList";
+		return "ShowList";
 	}
 
 	@Override

@@ -2,12 +2,11 @@ package com.actions;
 
 
 public class HideList implements IAction{
-	boolean show;
 	
 	
 	@Override
 	public String getName() {
-		return show? "HideList":"ShowList";
+		return "HideList";
 	}
 
 	@Override
@@ -16,7 +15,7 @@ public class HideList implements IAction{
 	}
 	
 	public String toString() {
-		return String.format("%s(%s)", getName());
+		return String.format("%s", getName());
 	}
 
 }

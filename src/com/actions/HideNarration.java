@@ -1,11 +1,14 @@
 package com.actions;
 
 public class HideNarration implements IAction{
+	boolean Show;
 	
-
+	public HideNarration(boolean Show) {
+		this.Show = Show;
+	}
 	@Override
 	public String getName() {
-		return "HideNarration";
+		return Show? "HideNarration":"ShowNarration";
 	}
 
 	@Override
@@ -14,6 +17,7 @@ public class HideNarration implements IAction{
 	}
 	
 	public String toString() {
-		return String.format("%s(%s)", getName());
+		return String.format("%s()", getName());
 	}
+
 }

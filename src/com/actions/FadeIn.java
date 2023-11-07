@@ -1,19 +1,24 @@
 package com.actions;
 
 public class FadeIn implements IAction{
-
+	boolean show;
+	
+	public FadeIn(boolean show) {
+		this.show = show;
+	}
+	
 	@Override
 	public String getName() {
-		return "FadeIn";
+		return show? "FadeIn":"FadeOut";
 	}
 
 	@Override
 	public boolean getShouldWait() {
-		return false;
+		return true;
 	}
 	
 	public String ToString() {
-		return String.format("%s(%s)", getName());
+		return String.format("%s()", getName());
 	}
 
 }
