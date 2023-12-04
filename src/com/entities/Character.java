@@ -4,7 +4,7 @@ public class Character implements IEntity, IThing<Character.BodyType>{
 	private String name;
 	private BodyType bodyType;
 	private Clothing clothing;
-	private HairStyles hairStyle;
+	private Hairstyles hairStyle;
 	
 	public Character(String name) {
 		this.name = name;
@@ -21,7 +21,7 @@ public class Character implements IEntity, IThing<Character.BodyType>{
 		this.clothing = clothing;
 	}
 	
-	public Character(String name, BodyType bodyType, Clothing clothing, HairStyles hairStyle) {
+	public Character(String name, BodyType bodyType, Clothing clothing, Hairstyles hairStyle) {
 		this.name = name;
 		this.bodyType = bodyType;
 		this.clothing = clothing;
@@ -51,10 +51,10 @@ public class Character implements IEntity, IThing<Character.BodyType>{
 		Priest
 	}
 	
-	public enum HairStyles {
+	public enum Hairstyles {
 		Long,
 		Spiky,
-		Short,
+		Short
 	}
 	
 	public BodyType getBody() {
@@ -65,7 +65,7 @@ public class Character implements IEntity, IThing<Character.BodyType>{
 		return this.clothing;
 	}
 	
-	public HairStyles gethair() {
+	public Hairstyles gethair() {
 		return this.hairStyle;
 	}
 	

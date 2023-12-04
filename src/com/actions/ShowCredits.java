@@ -1,10 +1,11 @@
 package com.actions;
 
-public class FadeOut implements IAction{
+public class ShowCredits implements IAction{
+	
 	
 	@Override
 	public String getName() {
-		return "FadeOut";
+		return "ShowCredits";
 	}
 
 	@Override
@@ -15,5 +16,4 @@ public class FadeOut implements IAction{
 	public String toString() {
 		return String.format("%s()", getName());
 	}
-
 }

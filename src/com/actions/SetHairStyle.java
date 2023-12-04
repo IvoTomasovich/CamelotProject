@@ -1,15 +1,15 @@
 package com.actions;
 
-import com.entities.Character.HairStyles;
+//import com.entities.Character.HairStyles;
 import com.entities.Character;
 
 public class SetHairStyle implements IAction{
 	private Character character;
-	private HairStyles hairstyle;
+	//private HairStyles hairstyle;
 	
-	public SetHairStyle(Character character, HairStyles hairstyle) {
+	public SetHairStyle(Character character) {
 		this.character = character;
-		this.hairstyle = hairstyle;
+		//this.hairstyle = hairstyle;
 	}
 	
 	@Override
@@ -23,7 +23,7 @@ public class SetHairStyle implements IAction{
 	}
 	
 	public String toString() {
-		return String.format("%s(%s, %s)", getName(), character.getName(), hairstyle.toString());
+		return String.format("%s(%s, %s)", getName(), character.getName(), character.gethair());
 	}
 
 }

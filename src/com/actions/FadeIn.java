@@ -1,15 +1,11 @@
 package com.actions;
 
 public class FadeIn implements IAction{
-	boolean show;
 	
-	public FadeIn(boolean show) {
-		this.show = show;
-	}
 	
 	@Override
 	public String getName() {
-		return show? "FadeIn":"FadeOut";
+		return "FadeIn";
 	}
 
 	@Override
@@ -17,7 +13,7 @@ public class FadeIn implements IAction{
 		return true;
 	}
 	
-	public String ToString() {
+	public String toString() {
 		return String.format("%s()", getName());
 	}
 
